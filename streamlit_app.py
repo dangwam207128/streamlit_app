@@ -1,4 +1,4 @@
 import streamlit
 streamlit.title("Hello,,,,,,,,,,,,,,,")
-stremlit.header("Heder line")
-stremlit.text("Text")
+streamlit.header("Heder line")
+streamlit.text("Text")
