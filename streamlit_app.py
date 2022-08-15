@@ -34,28 +34,23 @@ try:
 except URLError as e:
     streamlit.error()
 
-
-
-
-my_cnx=snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur=my_cnx.cursor()
-my_cur.execute("select current_user(),current_account(),current_region()")
-my_data_row=my_cur.fetchone()
-streamlit.text("Hello from Snowflake:")
-streamlit.text(my_data_row)
-
-my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-my_data_rows=my_cur.fetchall()
 streamlit.header("The Fruit Load List contains:")
-streamlit.dataframe(my_data_rows)
+def get_fruit_load_lis():
+  with my_cnx.cursor() as my_cur:
+      my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+      return my_cur.fetchall()
 
+if streamlit.button("Get Fruit LoadList"):
+     my_cnx=snowflake.connector.connect(**streamlit.secrets["snowflake"])
+     my_data_rows=get_fruit_load_lis()
+     streamlit.dataframe(my_data_rows)
 
 fruit_choice1 = streamlit.text_input('What fruit would you like information about?','jackfruit')
 streamlit.write('The user entered ', fruit_choice1)
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice1)
 streamlit.header("Fruityvice Fruit Advice!")
 streamlit.text(fruityvice_response.json())
-
 streamlit.write('thanks for adding',fruit_choice1)
-my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from starlit')")
+
+#my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from starlit')")
 
