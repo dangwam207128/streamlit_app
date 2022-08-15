@@ -51,5 +51,5 @@ streamlit.header("Fruityvice Fruit Advice!")
 streamlit.text(fruityvice_response.json())
 
 streamlit.write('thanks for adding',fruit_choice1)
-my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from starlit')"
+my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('from starlit')")
 
